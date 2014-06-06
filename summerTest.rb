@@ -14,13 +14,17 @@ end
   
 File.readlines("test.txt").each  do |line| 
   article = OTS.parse(line)
-  a = article.summarize(percent: 25)
-  a.each do |x|
+#  a = article.summarize(percent: 80)
+  b = article.summarize(sentences: 1 , percent: 5)
+  b.each do |x|
     arr.push x[:sentence]
   end
 end
+if File.file?('converted.txt')
+  File.delete("converted.txt")
+  puts "file deleted"
+end
 
-File.delete("converted.txt")
 File.open("converted.txt", "w+") do |f|
   f.puts(arr)
 end 

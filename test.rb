@@ -11,5 +11,5 @@ thought Alice `without pictures or conversation?'")
 #   puts x[:sentence]
 #end
 
-puts article.keywords
-puts article.summarize(percent: 20)
+
+puts article.summarize(sentences: 1)
