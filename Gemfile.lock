@@ -2,6 +2,9 @@ GEM
   remote: https://rubygems.org/
   specs:
     coderay (1.1.0)
+    dotenv (0.11.1)
+      dotenv-deployment (~> 0.0.2)
+    dotenv-deployment (0.0.2)
     fetcher (0.4.3)
       logutils (>= 0.6)
     logutils (0.6.0)
@@ -17,6 +20,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  dotenv
   fetcher
   ots
   pry

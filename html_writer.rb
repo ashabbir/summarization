@@ -12,7 +12,6 @@ end
 
 
 data = File.open('test.txt').read
-binding.pry
 s = Summarize.new text: data
 
 arr = []
