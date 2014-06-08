@@ -1,6 +1,7 @@
 require 'ots'
 require 'open-uri'
 require 'cgi'
+require 'pry'
 
 arr = Array.new
 
@@ -23,6 +24,7 @@ File.readlines("test.txt").each  do |line|
   article = OTS.parse(line)
   a = article.summarize(percent: 25)
   a.each do |x|
+    binding.pry
     if x[:score].to_i > 25
       arr.push "<span class='highlighted' style='background: #fff2a8;'>" + x[:sentence] + "</span>" 
     else 
@@ -36,11 +38,6 @@ puts "summerized"
 
 File.open("converted.htm", "a") do |f|
   f.puts(arr)
+  f.puts "</BODY></HTML>"
 end 
-
-File.open("converted.htm", "a") do |fileHtml|
-  fileHtml.puts "</BODY></HTML>"
-end 
-
-puts 'done'
 
