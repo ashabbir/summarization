@@ -13,12 +13,6 @@ end
 
 
 
-File.open("converted.htm", "w") do |fileHtml|
-  fileHtml.puts "<HTML>"
-  fileHtml.puts "<BODY>"
-end
-
-
 File.readlines("test.txt").each  do |line|
   article = OTS.parse(line)
   a = article.summarize(percent: 25)
@@ -34,15 +28,20 @@ File.readlines("test.txt").each  do |line|
 end
 puts "summerized"
 
+html =<<HTML
+<HTML>
+<BODY>
+#{arr.join}
+</BODY>
+</HTML>
+HTML
 
-
-File.open("converted.htm", "a") do |f|
-  f.puts(arr)
+File.open("converted.htm", "w") do |fileHtml|
+  fileHtml.puts html
 end
 
-File.open("converted.htm", "a") do |fileHtml|
-  fileHtml.puts "</BODY></HTML>"
-end
+
+
+
 
 puts 'done'
-
