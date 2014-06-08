@@ -1,5 +1,6 @@
 require 'ots'
 require 'open-uri'
+require 'cgi'
 
 arr = Array.new
 
@@ -18,8 +19,22 @@ File.readlines("test.txt").each  do |line|
     arr.push x[:sentence] if x[:score].to_i > 25
   end
 end
+puts "summerized"
 
-File.open("converted.txt", "w") do |f|
+
+File.open("converted.htm", "w") do |fileHtml|
+  fileHtml.puts "<HTML>"
+  fileHtml.puts "<BODY>"
+end 
+
+
+File.open("converted.htm", "a") do |f|
   f.puts(arr)
 end 
+
+File.open("converted.htm", "a") do |fileHtml|
+  fileHtml.puts "</BODY></HTML>"
+end 
+
+puts 'done'
 
