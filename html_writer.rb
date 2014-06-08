@@ -1,9 +1,8 @@
 require 'ots'
 require 'open-uri'
 require 'cgi'
-
-arr = Array.new
-
+require './lib/summarize'
+require 'pry'
 
 
 unless File.file?('test.txt')
@@ -13,19 +12,24 @@ end
 
 
 
-File.readlines("test.txt").each  do |line|
-  article = OTS.parse(line)
-  a = article.summarize(percent: 25)
-  a.each do |x|
-    x[:sentence] = x[:sentence].gsub("\n", "<br/>")
+data = File.open('test.txt').read
+s = Summarize.new text: data
 
-    if x[:score].to_i > 25
-      arr.push "<span class='highlighted' style='background: #fff2a8;'>" + x[:sentence] + "</span>"
-    else
-      arr.push  x[:sentence]
-    end
+arr = []
+s.process.each do |x|
+  x[:sentence] = x[:sentence].gsub("\n", "<br/>")
+
+  if x[:score].to_i > 25
+    arr.push "<span class='highlighted' style='background: #fff2a8;'>" + x[:sentence] + "</span>"
+  else
+    arr.push  x[:sentence]
   end
 end
+
+
+
+
+
 puts "summerized"
 
 html =<<HTML

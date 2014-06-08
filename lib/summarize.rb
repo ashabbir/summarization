@@ -1,4 +1,3 @@
-require 'json'
 require 'ots'
 
 class Summarize
@@ -10,6 +9,6 @@ class Summarize
   end
 
   def process
-    OTS.parse(text).summarize(percent: percent).to_json
+    OTS.parse(text).summarize(percent: percent)
   end
 end
