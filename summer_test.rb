@@ -23,6 +23,8 @@ File.readlines("test.txt").each  do |line|
   article = OTS.parse(line)
   a = article.summarize(percent: 25)
   a.each do |x|
+    x[:sentence] = x[:sentence].gsub("\n", "<br/>")
+
     if x[:score].to_i > 60
       arr.push "<span class='highlighted'>" + x[:sentence] + "</span>"
     else
