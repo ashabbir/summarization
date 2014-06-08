@@ -1,0 +1,22 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    coderay (1.1.0)
+    fetcher (0.4.3)
+      logutils (>= 0.6)
+    logutils (0.6.0)
+    method_source (0.8.2)
+    ots (0.5.4)
+    pry (0.9.12.6)
+      coderay (~> 1.0)
+      method_source (~> 0.8)
+      slop (~> 3.4)
+    slop (3.5.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  fetcher
+  ots
+  pry
