@@ -10,6 +10,6 @@ class Summarize
   end
 
   def process
-    OTS.parse(line).summarize(percent: percent).to_json
+    OTS.parse(text).summarize(percent: percent).to_json
   end
 end
