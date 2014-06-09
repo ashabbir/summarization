@@ -1,15 +1,14 @@
-require 'json'
 require 'ots'
 
-class Summarize
+class highlight
   attr_reader :text, :percent
 
   def initialize(options)
-    @text = options.fetch(:text).to_s.scrub
+    @text = options.fetch(:text)
     @percent =  options.fetch(:percent){25}
   end
 
   def process
-    OTS.parse(text).summarize(percent: percent).to_json
+    OTS.parse(text).summarize(percent: percent)
   end
 end

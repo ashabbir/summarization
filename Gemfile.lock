@@ -5,15 +5,21 @@ GEM
     dotenv (0.11.1)
       dotenv-deployment (~> 0.0.2)
     dotenv-deployment (0.0.2)
-    fetcher (0.4.3)
-      logutils (>= 0.6)
-    logutils (0.6.0)
+    mail (2.6.1)
+      mime-types (>= 1.16, < 3)
     method_source (0.8.2)
+    mime (0.4.1)
+    mime-types (2.3)
     ots (0.5.4)
     pry (0.9.12.6)
       coderay (~> 1.0)
       method_source (~> 0.8)
       slop (~> 3.4)
+    ruby-gmail (0.3.1)
+      mail (>= 2.2.1)
+      mime (>= 0.1)
+      shared-mime-info
+    shared-mime-info (0.2.5)
     slop (3.5.0)
 
 PLATFORMS
@@ -21,6 +27,6 @@ PLATFORMS
 
 DEPENDENCIES
   dotenv
-  fetcher
   ots
   pry
+  ruby-gmail
