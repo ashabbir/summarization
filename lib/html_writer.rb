@@ -4,18 +4,12 @@ require 'cgi'
 require './summarize'
 require 'pry'
 
-unless File.file?('test.txt')
-  f = open('http://icourse.cuc.edu.cn/computernetworks/labs/alice.txt').read
-  File.open("test.txt", 'w') { |file| file.write(f) }
-end
 
-
-
-data = File.open('test.txt').read
-s = Summarize.new text: data, percent: 25
+data = File.open(File.expand_path('../drop/') + '/test.txt').read
+s = Summarize.new text: data, percent: 70, cutoff_percent: 50
 arr = []
 s.process
-s.cutoff
+s.calculate_cutoff
 arr = s.highlight
 
 

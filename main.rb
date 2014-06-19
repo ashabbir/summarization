@@ -4,6 +4,8 @@ require 'json'
 require 'yaml'
 require 'sinatra/reloader' if development?
 require_relative 'lib/file_processor'
+require_relative 'lib/summarize'
+
 
 
 set :static, true
@@ -34,14 +36,35 @@ end
 
 
 
-get '/test' do
+get '/cnn' do
 
   config = YAML.load_file File.expand_path('./config.yml', File.dirname(__FILE__))
   drop = config[:drop_path]
-  
-  fetcher = FileProcessor.new name: "alice.txt" ,  url: 'http://icourse.cuc.edu.cn/computernetworks/labs/alice.txt' , drop: drop
+  fetcher = FileProcessor.new name: "test.txt" ,  drop: drop
   fetcher.fetch_if_needed
-#  binding.pry  
-  fetcher.open_file.to_json
+  @data = fetcher.open_file
+  s = Summarize.new text: @data, percent: 70, cutoff_percent: 50
+  s.process
+  s.calculate_cutoff
+  @arr = s.highlight
+  @data = @data.gsub("\r\n", "<p>")
+  erb :summary
+  
+end
+
+
+get '/alice' do
+
+  config = YAML.load_file File.expand_path('./config.yml', File.dirname(__FILE__))
+  drop = config[:drop_path]
+  fetcher = FileProcessor.new name: "text.txt" ,  url: 'http://icourse.cuc.edu.cn/computernetworks/labs/alice.txt' , drop: drop
+  fetcher.fetch_if_needed
+  @data = fetcher.open_file
+  s = Summarize.new text: @data, percent: 70, cutoff_percent: 50
+  s.process
+  s.calculate_cutoff
+  @arr = s.highlight
+  @data = @data.gsub("\r\n", "<p>")
+  erb :summary
   
 end

@@ -7,13 +7,12 @@ class FileProcessor
   
   def initialize(options)
     @name   = options.fetch(:name)
-    @url    = options.fetch(:url)
+    @url    = options.fetch(:url) {''}
     @drop_location = options.fetch(:drop)
     @final_path = @drop_location + @name
   end
 
   def fetch_if_needed
-
     unless File.file?(@final_path)
       f = open(@url).read
       File.open(@final_path, 'w') { |file| file.write(f) }
@@ -22,11 +21,7 @@ class FileProcessor
   
   
   def open_file
-    toreturn = Array.new
-    File.readlines(@final_path).each  do |line|
-      toreturn.push line
-    end
-    toreturn
+    File.open(@final_path).read
   end
 
 
