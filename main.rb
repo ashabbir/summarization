@@ -1,5 +1,6 @@
 require 'sinatra'
 require 'yaml'
+require 'pry'
 require 'sinatra/reloader' if development?
 require_relative 'lib/file_processor'
 require_relative 'lib/summarize'
@@ -38,6 +39,7 @@ get '/cnn' do
 
   config = YAML.load_file File.expand_path('./config.yml', File.dirname(__FILE__))
   drop = config[:drop_path]
+  drop = File.expand_path(drop , __FILE__) + '/'
   fetcher = FileProcessor.new name: "test.txt" ,  drop: drop
   fetcher.fetch_if_needed
   @data = fetcher.open_file
@@ -55,6 +57,7 @@ get '/alice' do
 
   config = YAML.load_file File.expand_path('./config.yml', File.dirname(__FILE__))
   drop = config[:drop_path]
+  drop = File.expand_path(drop , __FILE__) + '/'
   fetcher = FileProcessor.new name: "text.txt" ,  url: 'http://icourse.cuc.edu.cn/computernetworks/labs/alice.txt' , drop: drop
   fetcher.fetch_if_needed
   @data = fetcher.open_file
