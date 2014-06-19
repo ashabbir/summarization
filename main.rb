@@ -1,6 +1,4 @@
 require 'sinatra'
-require 'pry'
-require 'json'
 require 'yaml'
 require 'sinatra/reloader' if development?
 require_relative 'lib/file_processor'

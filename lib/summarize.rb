@@ -1,5 +1,6 @@
 require 'ots'
-require 'pry'
+
+
 class Summarize
   attr_reader :text, :percent, :result , :cutoff_percent, :cutoff , :spanned
 
