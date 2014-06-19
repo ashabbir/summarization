@@ -1,3 +1,3 @@
-require_relative './lib/micro_service.rb'
+require_relative './main.rb'
 
 run Sinatra::Application
