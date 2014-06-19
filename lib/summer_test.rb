@@ -1,12 +1,11 @@
 require 'ots'
 require 'open-uri'
-require 'cgi'
 
 arr = Array.new
 
 
 
-unless File.file?('test.txt')
+unless File.file?('alice.txt')
   f = open('http://icourse.cuc.edu.cn/computernetworks/labs/alice.txt').read
   File.open("test.txt", 'w') { |file| file.write(f) }
 end

@@ -1,7 +1,7 @@
 require 'ots'
 require 'open-uri'
 require 'cgi'
-require './lib/summarize'
+require './summarize'
 require 'pry'
 
 unless File.file?('test.txt')
@@ -12,18 +12,11 @@ end
 
 
 data = File.open('test.txt').read
-s = Summarize.new text: data
-
+s = Summarize.new text: data, percent: 25
 arr = []
-s.process.each do |x|
-  x[:sentence] = x[:sentence].gsub("\n", "<br/>")
-
-  if x[:score].to_i > 25
-    arr << "<span class='highlighted' style='background: #fff2a8;'>" + x[:sentence] + "</span>"
-  else
-    arr <<  x[:sentence]
-  end
-end
+s.process
+s.cutoff
+arr = s.highlight
 
 
 
