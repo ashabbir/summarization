@@ -5,6 +5,7 @@ require 'sinatra/reloader' if development?
 require_relative 'lib/file_processor'
 require_relative 'lib/summarize'
 require_relative 'lib/mail_reader'
+require_relative 'lib/news_feed'
 
 
 
@@ -93,8 +94,31 @@ post '/gmail' do
     @arr.push s.highlight.join
   end
   @arr = @arr.reverse
-  erb :gmail_result
+  erb :result
 end
 
+
+get '/rss' do
+  rss_reader = NewsFeed.new url: 'http://rss.cnn.com/rss/cnn_world.rss'
+  @feed = rss_reader.get_feed
+  @arr = []
+  @feed.each do |m| 
+    s = Summarize.new text: m, percent: 90, cutoff_percent: 10
+    s.process
+    s.calculate_cutoff
+    @arr.push s.highlight.join
+  end
+  
+  rss_reader = NewsFeed.new url: 'http://rss.cnn.com/rss/cnn_topstories.rss'
+  @feed = rss_reader.get_feed
+  @feed.each do |m| 
+    s = Summarize.new text: m, percent: 90, cutoff_percent: 10
+    s.process
+    s.calculate_cutoff
+    @arr.push s.highlight.join
+  end
+  
+  erb :result
+end
 
 
