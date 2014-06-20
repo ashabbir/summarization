@@ -1,0 +1,12 @@
+<div class="form-box">
+
+	<% @arr.each do |m| %>
+	<% 		unless m.empty? %>
+	<div class="row">
+		<div class="col-md-8 main-container">
+			<%= m %>
+		</div>
+	</div>
+	<% 		end %>
+	<% end %>
+</div>

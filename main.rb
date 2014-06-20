@@ -4,6 +4,7 @@ require 'pry'
 require 'sinatra/reloader' if development?
 require_relative 'lib/file_processor'
 require_relative 'lib/summarize'
+require_relative 'lib/mail_reader'
 
 
 
@@ -69,3 +70,29 @@ get '/alice' do
   erb :summary
   
 end
+
+
+
+get '/gmail' do
+  erb :gmail
+end
+
+post '/gmail' do
+  username = params[:user_name]
+  password = params[:password]
+  days = params[:days]
+  m = MailReader.new username: username , password: password
+  @msg = m.process days.to_i
+  @arr = []
+  @msg.each do |m| 
+    s = Summarize.new text: m, percent: 70, cutoff_percent: 50
+    s.process
+    s.calculate_cutoff
+    @arr.push s.highlight.join
+  end
+  
+  erb :gmail_result
+end
+
+
+
