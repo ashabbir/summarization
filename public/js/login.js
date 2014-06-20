@@ -10,7 +10,7 @@ function successlogin(){
 	});
 	
 	$('button[type="submit"]').hide();
-	$( ".inner" ).append( "<a href='/contact' class='btn btn-info btn-block'> continue</a>" );
+	$( ".inner" ).append( "<a href='/gmail' class='btn btn-info btn-block'> continue</a>" );
             
 	//show avatar
 	$(".avatar").css({

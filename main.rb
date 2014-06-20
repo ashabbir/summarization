@@ -80,17 +80,19 @@ end
 post '/gmail' do
   username = params[:user_name]
   password = params[:password]
+  summarize = params[:summarize]
+  highlight = params[:highlight]
   days = params[:days]
   m = MailReader.new username: username , password: password
   @msg = m.process days.to_i
   @arr = []
   @msg.each do |m| 
-    s = Summarize.new text: m, percent: 70, cutoff_percent: 50
+    s = Summarize.new text: m, percent: summarize.to_i, cutoff_percent: highlight.to_i
     s.process
     s.calculate_cutoff
     @arr.push s.highlight.join
   end
-  
+  @arr = @arr.reverse
   erb :gmail_result
 end
 
