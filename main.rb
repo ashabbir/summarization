@@ -45,7 +45,7 @@ get '/cnn' do
   fetcher = FileProcessor.new name: "test.txt" ,  drop: drop
   fetcher.fetch_if_needed
   @data = fetcher.open_file
-  s = Summarize.new text: @data, percent: 70, cutoff_percent: 50
+  s = Summarize.new text: @data, percent: 7, cutoff_percent: 50
   s.process
   s.calculate_cutoff
   @arr = s.highlight
