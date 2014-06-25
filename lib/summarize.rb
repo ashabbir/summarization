@@ -2,13 +2,14 @@ require 'ots'
 
 
 class Summarize
-  attr_reader :text, :percent, :result , :cutoff_percent, :cutoff , :spanned
+  attr_reader :text, :percent, :result , :cutoff_percent, :cutoff , :spanned, :plain
 
   def initialize(options)
     @text = options.fetch(:text).to_s.scrub
     @percent =  options.fetch(:percent){25}
     @cutoff_percent =  options.fetch(:cutoff_percent){ @percent}
     @spanned = []
+    @plain = []
   end
 
   def process
@@ -38,5 +39,12 @@ class Summarize
     @spanned
   end
   
+  def plaintext
+    @result.each do |x|
+      x[:sentence] = x[:sentence].gsub("\n \n", "<p>").gsub("\r\n", "<p>")
+        @plain <<  x[:sentence]
+    end
+    @plain
+  end
   
 end
