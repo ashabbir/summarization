@@ -129,18 +129,13 @@ post '/summarize' do
   request.body.rewind
   @request_payload = JSON.parse request.body.read
   word_count = @request_payload["word"].to_f
-
-  
   text = @request_payload["text"]
   total = text.split.size.to_f
   pct = (word_count / total) * 100
-  @arr = []
-  binding.pry
-  
+  @arr = []  
   s = Summarize.new text: text, percent: pct, cutoff_percent: 0
   s.process
   @arr.push s.plaintext.join
-  binding.pry
   @arr.to_json
 end
 
