@@ -3,6 +3,7 @@ GEM
   specs:
     backports (3.6.0)
     coderay (1.1.0)
+    json (1.8.1)
     mail (2.6.1)
       mime-types (>= 1.16, < 3)
     method_source (0.8.2)
@@ -42,6 +43,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  json
   ots
   pry
   ruby-gmail
