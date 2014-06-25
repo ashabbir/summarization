@@ -125,10 +125,9 @@ end
 
 
 post '/summarize' do
-  content_type :json
-  JSON.parse(json, :quirks_mode => true)
+  content_type :json  
   request.body.rewind
-  @request_payload = JSON.parse request.body.read
+  @request_payload = JSON.parse request.body.read, :quirks_mode => true
   word_count = @request_payload["word"].to_f
   text = @request_payload["text"]
   total = text.split.size.to_f
