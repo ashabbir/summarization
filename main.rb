@@ -128,7 +128,7 @@ post '/summarize' do
   content_type :json  
   request.body.rewind
   json = request.body.read
-  json = json.scrub.gsub("\n", " ").gsub("\r\n", " ").gsub('\"', '"')
+  json = json.scrub.gsub(/\r/, " ").gsub(/\n/, " ").strip
   
   @request_payload = JSON.parse json, :quirks_mode => true
   word_count = @request_payload["word"].to_f
