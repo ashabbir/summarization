@@ -140,7 +140,7 @@ post '/summarize' do
   s = Summarize.new text: text, percent: pct, cutoff_percent: 0
   s.process
   @summary = s.plaintext.join
-  sen = Sentimental.new text: text
+  sen = Sentimental.new text: @summary
   sen.process
   @result = Hash["total" => sen.total, "scores" => sen.scores ,
      "sentences" => sen.sentences , "calculated" => sen.calculated ,
