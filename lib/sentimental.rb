@@ -2,7 +2,7 @@ require 'sad_panda'
 
 
 class Sentimental
-  attr_reader :text, :total, :calculated , :sentences, :scores
+  attr_reader :text, :total, :calculated , :sentences, :scores , :verdict
 
   def initialize(options)
     @text = options.fetch(:text).to_s.scrub.chomp
@@ -10,6 +10,7 @@ class Sentimental
     @calculated = 0
     @sentences = []
     @scores = []
+    @verdict ="undecided"
   end
 
   def process
@@ -17,11 +18,14 @@ class Sentimental
     @sentences.reject! { |c| c.empty? }
     @sentences.each do |s|
       score = SadPanda.polarity(s)
+      score = score.to_f / 100
       @scores.push score
       @calculated = @calculated + score
-      @total = @total + 10
+      @total = @total + 1
     end
+    @verdict = SadPanda.emotion(@text)
     @calculated
+
   end
     
 end
