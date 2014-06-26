@@ -7,6 +7,7 @@ require_relative 'lib/file_processor'
 require_relative 'lib/summarize'
 require_relative 'lib/mail_reader'
 require_relative 'lib/news_feed'
+require_relative 'lib/sentimental'
 
 
 
@@ -135,10 +136,31 @@ post '/summarize' do
   text = @request_payload["text"]
   total = text.split.size.to_f
   pct = (word_count / total) * 100
-  @arr = []  
+  @summary = []  
   s = Summarize.new text: text, percent: pct, cutoff_percent: 0
   s.process
-  @arr.push s.plaintext.join
-  @arr.to_json
+  @summary = s.plaintext.join
+  sen = Sentimental.new text: text
+  sen.process
+  @result = Hash["total" => sen.total, "scores" => sen.scores ,
+     "sentences" => sen.sentences , "calculated" => sen.calculated ,
+     "summmary" => @summary]
+  @result.to_json
+end
+
+
+get '/sentiment' do
+  content_type :json  
+  config = YAML.load_file File.expand_path('./config.yml', File.dirname(__FILE__))
+  drop = config[:drop_path]
+  drop = File.expand_path(".././drop/" , __FILE__) + '/'
+  fetcher = FileProcessor.new name: "test.txt" ,  drop: drop
+  fetcher.fetch_if_needed
+  text = fetcher.open_file
+  
+  s = Sentimental.new text: text
+  s.process
+  @result = Hash["total" => s.total, "scores" => s.scores , "sentences" => s.sentences , "calculated" => s.calculated]
+  @result.to_json
 end
 

@@ -24,6 +24,9 @@ GEM
       mail (>= 2.2.1)
       mime (>= 0.1)
       shared-mime-info
+    ruby-stemmer (0.9.3)
+    sad_panda (1.0.1)
+      ruby-stemmer
     shared-mime-info (0.2.5)
     sinatra (1.4.5)
       rack (~> 1.4)
@@ -47,5 +50,6 @@ DEPENDENCIES
   ots
   pry
   ruby-gmail
+  sad_panda
   sinatra
   sinatra-contrib
