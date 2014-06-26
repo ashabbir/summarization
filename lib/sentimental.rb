@@ -18,7 +18,7 @@ class Sentimental
     @sentences.reject! { |c| c.empty? }
     @sentences.each do |s|
       score = SadPanda.polarity(s)
-      score = score.to_f / 100
+      score = score.to_f / 10
       @scores.push score
       @calculated = @calculated + score
       @total = @total + 1

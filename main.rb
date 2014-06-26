@@ -142,7 +142,8 @@ post '/summarize' do
   @summary = s.plaintext.join
   sen = Sentimental.new text: @summary
   sen.process
-  @result = Hash["total_sentiment" => sen.total, "calculated_sentiment" => sen.scores , "summmary" => @summary , "verdict" => sen.verdict]
+  @result = Hash["total_sentiment" => sen.total, "calculated_sentiment" => sen.calculated , 
+    "summmary" => @summary , "verdict" => sen.verdict , "score_part" => sen.scores]
   @result.to_json
 end
 
