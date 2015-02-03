@@ -8,3 +8,7 @@ http://libots.sourceforge.net/
 
 reference
 http://www.summarization.com/
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/ashabbir/summarization/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
